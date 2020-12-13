@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analouge clock with js</title>
+    <!-- css styling start here -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: rgb(37, 186, 255);
+        }
+        .contaner{
+            position: relative;
+            width: 60vh;
+            height:60vh;
+            margin: auto;
+            padding: 20px;
+        }
+        .clock{
+            /* position: absolute; */
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: url(./img/clock.png);
+            background-size: cover;
+            background-color: rgb(241, 241, 241);
+            border:10px solid rgba(255, 255, 255, 0.822);
+            box-shadow: 5px 5px 15px 0px rgb(255, 255, 255);
+        }
+        .clock::before{
+            content: "";
+            position: absolute;
+            width: 2.8%;
+            height: 2.8%;
+            background-color: rgb(46, 46, 46);
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 40%;
+        }
+        .hr,.min,.sec{
+            position: absolute;
+            transform-origin: bottom;
+            border-top-left-radius:70% ;
+            transition: all 1s;
+        }
+        .hr{
+            width: 1%;
+            height: 28%;
+            background-color: rgb(61, 61, 61);
+            top: 22%;
+            left: 49.6%;
+            /* display: none; */
+            z-index:3;
+        }
+        .min{
+            width: .8%;
+            height: 33%;
+            background-color: rgb(59, 59, 59);
+            top: 17%;
+            left: 49.6%;
+            z-index: 3;
+            /* display: none; */
+        }
+        .sec{
+            width: .6%;
+            height: 38%;
+            background-color: rgb(255, 66, 66);
+            top: 12%;
+            left: 49.75%;
+            z-index: 3;
+        }
+        .dig{
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            color: rgb(37, 186, 255);
+            font-family: 'Monoton', cursive;
+            z-index: 1;
+            padding: 3px 5px;
+            border: 8px solid white;
+            border-radius: 8px;
+            box-shadow: 5px 5px 15px -3px rgb(58, 58, 58);
+            font-weight: bold;
+
+        }
+        .d_clock{
+            display: flex;
+            font-size: 20px;
+        }
+        .d_date{
+            display: flex;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .d_hr,.d_min,.d_sec{
+            transition: all 1s;
+            display: inline-block;
+            width: 50px;
+            text-align: center;
+
+        }
+    </style>
+    <!-- css styling end here -->
+</head>
+<body>
+	<!-- html part start here -->
+    <div class="contaner">
+        <div class="clock">
+            <div class="hr"></div>
+            <div class="min"></div>
+            <div class="sec"></div>
+            <div class="dig">
+                <div class="d_clock">
+                    <div class="d_hr">00:</div>
+                    <div class="d_min">00:</div>
+                    <div class="d_sec">00</div>
+                </div>
+                <div class="d_date">
+                    <div class="day">00-</div>
+                    <div class="month">00-</div>
+                    <div class="year">0000</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- html part end here -->
+
+	<!-- javascript star here -->
+    <script>
+            let hr = document.querySelector(".hr");
+            let min = document.querySelector(".min");
+            let sec = document.querySelector(".sec");
+
+            let dHr = document.querySelector(".d_hr");
+            let dMin = document.querySelector(".d_min");
+            let dSec = document.querySelector(".d_sec");
+
+            let day = document.querySelector(".day")
+            let month = document.querySelector(".month")
+            let year = document.querySelector(".year")
+        setInterval(()=>{
+            let d = new Date();
+            let h = d.getHours();
+            let m = d.getMinutes();
+            let s = d.getSeconds();
+            let hRotation = 30*h+m/2
+            let mRotation = 6*m
+            let sRotation = 6 *s
+            hr.style.transform=`rotate(${hRotation}deg)`
+            min.style.transform=`rotate(${mRotation}deg)`
+            sec.style.transform=`rotate(${sRotation}deg)`
+            if(h>12){
+                h-=12;
+            }
+            dHr.innerHTML=h+" : "
+            dMin.innerHTML=m+" : "
+            dSec.innerHTML=s
+
+            day.innerHTML=d.getDate()+" - "
+            month.innerHTML=d.getMonth()+" - "
+            year.innerHTML=d.getFullYear()
+        },1000)
+
+    </script>
+    <!-- javascript end here -->
+</body>
+</html>
